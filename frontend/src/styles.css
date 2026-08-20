@@ -55,7 +55,11 @@ select {
 }
 
 .page {
-  padding: 16px 20px 120px;
+  padding: 16px 20px calc(120px + env(safe-area-inset-bottom, 0px));
+}
+
+.page-configure {
+  padding-bottom: calc(136px + env(safe-area-inset-bottom, 0px));
 }
 
 .topbar {
@@ -81,14 +85,25 @@ select {
 }
 
 .back-link {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--surface);
   border: 1px solid var(--line);
+  white-space: nowrap;
+  padding: 8px 14px;
+  font-weight: 600;
+}
+
+.topbar .back-link {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
 }
 
 .eyebrow {
@@ -317,11 +332,19 @@ h3 {
 
 .choice {
   display: grid;
-  grid-template-columns: 72px 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
-  align-items: center;
-  padding: 10px;
+  align-items: start;
+  padding: 12px 14px;
   border-radius: 18px;
+  min-height: 64px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.choice:has(img) {
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
 }
 
 .choice img {
@@ -334,6 +357,8 @@ h3 {
 .choice span {
   display: grid;
   gap: 4px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .choice em,
@@ -341,6 +366,8 @@ h3 {
   font-style: normal;
   color: var(--muted);
   font-size: 13px;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .live-quote,
@@ -362,8 +389,11 @@ h3 {
 
 .bottom-actions {
   position: sticky;
-  bottom: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   margin-top: 24px;
+  padding: 8px 0;
+  z-index: 3;
+  background: linear-gradient(180deg, transparent, var(--bg) 28%);
 }
 
 .bottom-actions .btn {
@@ -495,9 +525,19 @@ h3 {
   padding: 24px;
 }
 
+.admin-shell > .back-link {
+  width: auto;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font: inherit;
+}
+
 .admin-top nav {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .filters {
@@ -519,6 +559,46 @@ h3 {
   padding: 16px;
   text-decoration: none;
   box-shadow: var(--shadow);
+}
+
+.lead-card {
+  max-width: 720px;
+}
+
+.lead-score-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.lead-score-value {
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+}
+
+.lead-qualify {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.lead-qualify div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.lead-qualify dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.lead-qualify dd {
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .lead-row {
@@ -569,6 +649,21 @@ h3 {
   border: 0;
   color: var(--accent);
   cursor: pointer;
+  text-decoration: none;
+}
+
+.demo-chrome-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--surface);
+  color: var(--ink);
   text-decoration: none;
 }
 

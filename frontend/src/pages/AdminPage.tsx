@@ -42,13 +42,19 @@ export function AdminPage({ readOnly = false }: { readOnly?: boolean }) {
     <div className="admin-shell">
       <header className="admin-top">
         <div>
-          <p className="eyebrow">{readOnly ? 'Sales view' : 'Admin'}</p>
+          <p className="eyebrow">{readOnly ? 'Кабинет менеджера · только чтение' : 'Admin'}</p>
           <h1>Заявки Nordhaus</h1>
         </div>
         <nav>
           <Link to={base}>Лиды</Link>
           {!readOnly && <Link to={`${base}/catalog`}>Каталог</Link>}
-          <Link to="/">Клиент</Link>
+          {readOnly ? (
+            <Link className="demo-chrome-cta" to="/">
+              Открыть клиентское приложение
+            </Link>
+          ) : (
+            <Link to="/">Клиент</Link>
+          )}
         </nav>
       </header>
 
@@ -160,8 +166,9 @@ export function AdminLeadPage({ readOnly = false }: { readOnly?: boolean }) {
         ← К заявкам
       </button>
       <article className="lead-card" data-demo-tour="lead-card">
-        <div className={temperatureClass(lead.temperature)} data-demo-tour="lead-score">
-          {lead.temperature.toUpperCase()} {lead.score}/100
+        <div className="lead-score-row" data-demo-tour="lead-score">
+          <span className={temperatureClass(lead.temperature)}>{lead.temperature.toUpperCase()}</span>
+          <strong className="lead-score-value">{lead.score}/100</strong>
         </div>
         <h1>{lead.customer.name}</h1>
         <p>
@@ -180,10 +187,24 @@ export function AdminLeadPage({ readOnly = false }: { readOnly?: boolean }) {
         </section>
         <section>
           <h2>Квалификация</h2>
-          <p>{LAND_LABELS[lead.hasLand]}</p>
-          <p>{lead.region}</p>
-          <p>{START_LABELS[lead.desiredStartPeriod]}</p>
-          <p>{BUDGET_LABELS[lead.budgetRange]}</p>
+          <dl className="lead-qualify">
+            <div>
+              <dt>Участок</dt>
+              <dd>{LAND_LABELS[lead.hasLand]}</dd>
+            </div>
+            <div>
+              <dt>Регион</dt>
+              <dd>{lead.region}</dd>
+            </div>
+            <div>
+              <dt>Срок</dt>
+              <dd>{START_LABELS[lead.desiredStartPeriod]}</dd>
+            </div>
+            <div>
+              <dt>Бюджет</dt>
+              <dd>{BUDGET_LABELS[lead.budgetRange]}</dd>
+            </div>
+          </dl>
         </section>
         <section data-demo-tour="lead-reasons">
           <h2>Почему такой score</h2>

@@ -67,7 +67,7 @@ export function ConfigurePage() {
   }, [quote]);
 
   return (
-    <div className="page">
+    <div className="page page-configure">
       <TopBar backTo={project ? `/projects/${project.slug}` : '/projects'} title="Конфигуратор" />
       <div className="stepper">
         {[1, 2, 3, 4].map((item) => (
